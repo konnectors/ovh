@@ -1,4 +1,4 @@
-const { BaseKonnector, saveBills, log } = require('cozy-konnector-libs')
+const { BaseKonnector, saveBills, log, errors } = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(start)
 
@@ -9,10 +9,8 @@ async function start(fields) {
     appSecret: fields.appSecret,
     consumerKey: fields.consumerKey
   })
-  // Really test token
-
-  log('info', 'Getting bills ...')
-  const bills = await getBills(ovh)
+  log('info', 'Getting bills and test tokens...')
+  const bills = await getBillsListAndTestTokens(ovh)
   const billsDecorated = await parseAndDecorateBills(ovh, bills)
 
   log('info', 'Saving data to Cozy...')
@@ -22,8 +20,25 @@ async function start(fields) {
   })
 }
 
-async function getBills(ovh) {
-  const bills = await ovh.requestPromised('GET', '/me/bill')
+async function getBillsListAndTestTokens(ovh) {
+  let bills = []
+  try {
+    bills = await ovh.requestPromised('GET', '/me/bill')
+  } catch (e) {
+    if (e.error && e.error == 403) {
+      log('error', e)
+      throw new Error(errors.LOGIN_FAILED)
+    } else if (e.error && e.error == 400
+               && e.message && e.message == 'Invalid signature') {
+      log('error', e)
+      log('error', 'The AppSecret seems not valid')
+      throw new Error(errors.LOGIN_FAILED)
+    }
+    else {
+      throw e
+    }
+  }
+
   log('info', `Found a list of ${bills.length} bills`)
   log('debug', bills)
   return bills
