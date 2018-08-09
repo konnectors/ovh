@@ -1,8 +1,4 @@
-const {
-  BaseKonnector,
-  saveBills,
-  log
-} = require('cozy-konnector-libs')
+const { BaseKonnector, saveBills, log } = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(start)
 
@@ -40,7 +36,7 @@ async function parseAndDecorateBills(ovh, bills) {
     const dateObject = new Date(details.date)
     const billDec = {
       vendor: 'Ovh',
-      date: dateObject.toString(),
+      date: dateObject,
       amount: details.priceWithTax.value,
       currency: details.priceWithTax.currencyCode,
       fileurl: details.pdfUrl,
