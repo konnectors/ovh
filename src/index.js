@@ -1,4 +1,5 @@
-process.env.SENTRY_DSN = process.env.SENTRY_DSN ||
+process.env.SENTRY_DSN =
+  process.env.SENTRY_DSN ||
   'https://9ba275488abd408ebd7dbd017e7994b7:a3e6a4bd7d904bf890ecaf602ecfbf73@sentry.cozycloud.cc/89'
 
 const { BaseKonnector, saveBills, log, errors } = require('cozy-konnector-libs')
