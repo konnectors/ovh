@@ -1,3 +1,6 @@
+process.env.SENTRY_DSN = process.env.SENTRY_DSN ||
+  'https://9ba275488abd408ebd7dbd017e7994b7:a3e6a4bd7d904bf890ecaf602ecfbf73@sentry.cozycloud.cc/89'
+
 const { BaseKonnector, saveBills, log, errors } = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(start)
@@ -55,9 +58,10 @@ async function getBillsListAndTestTokens(ovh) {
       throw new Error(errors.LOGIN_FAILED)
     } else if (
       e.error &&
-        e.error == 403 &&
-        e.message &&
-        e.message == 'This credential is not valid') {
+      e.error == 403 &&
+      e.message &&
+      e.message == 'This credential is not valid'
+    ) {
       log('error', e)
       log('error', 'The tokens seems to have expired')
       throw new Error(errors.LOGIN_FAILED)
@@ -73,9 +77,9 @@ async function getBillDetails(ovh, billId) {
   } catch (e) {
     if (
       e.error &&
-        e.error == 403 &&
-        e.message &&
-        e.message == 'This call has not been granted'
+      e.error == 403 &&
+      e.message &&
+      e.message == 'This call has not been granted'
     ) {
       log('error', e)
       log('error', 'Auth ok, but GET /me/bill/* have not been granted')

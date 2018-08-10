@@ -1,19 +1,22 @@
 {
   "version": "1.0.0",
-  "name": "Connector template",
+  "name": "Ovh",
   "type": "konnector",
   "language": "node",
   "icon": "icon.png",
-  "slug": "template",
-  "source": "git://github.com/konnectors/cozy-konnector-template.git",
+  "slug": "ovh",
+  "source": "git://github.com/konnectors/ovh.git",
   "editor": "Cozy",
-  "vendor_link": "Link to the target website",
-  "categories": ["other"],
+  "vendor_link": "https://www.ovh/com/",
+  "categories": ["online_services"],
   "fields": {
-    "login": {
+    "appKey": {
       "type": "text"
     },
-    "password": {
+    "appSecret": {
+      "type": "password"
+    },
+    "consumerKey": {
       "type": "password"
     },
     "advancedFields": {
@@ -26,7 +29,6 @@
   "data_types": [
     "bill"
   ],
-  "screenshots": [ "screenshots/screenshot1.png" ],
   "permissions": {
     "bank operations": {
       "type": "io.cozy.bank.operations"
@@ -49,8 +51,8 @@
   "langs": ["fr", "en"],
   "locales": {
     "fr": {
-      "short_description": "Template de connecteur",
-      "long_description": "Ce template récupère une liste de livres sur un site de scraping",
+      "short_description": "Connecteur Ovh",
+      "long_description": "Ce connecteur récupère vos factures du site ovh.com via l'api. Utiliser ce lien pour générer vos tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
       "permissions": {
         "bank operations": {
           "description": "Utilisé pour relier les factures à des operations bancaires"
@@ -67,8 +69,8 @@
       }
     },
     "en": {
-      "short_description": "Connector template",
-      "long_description": "This template fetches a list of books from a scraping website",
+      "short_description": "Ovh connector",
+      "long_description": "This connector fetches your bills on ovh.com from the API. Use this link to generate your tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
       "permissions": {
         "bank operations": {
           "description": "Required to link bank operations to bills"
