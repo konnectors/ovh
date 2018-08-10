@@ -11,6 +11,8 @@ async function start(fields) {
   })
   log('info', 'Getting bills and test tokens...')
   const bills = await getBillsListAndTestTokens(ovh)
+  log('info', `Found a list of ${bills.length} bills`)
+  log('debug', bills)
   const billsDecorated = await parseAndDecorateBills(ovh, bills)
 
   log('info', 'Saving data to Cozy...')
@@ -21,13 +23,16 @@ async function start(fields) {
 }
 
 async function getBillsListAndTestTokens(ovh) {
-  let bills = []
   try {
-    bills = await ovh.requestPromised('GET', '/me/bill')
+    return await ovh.requestPromised('GET', '/me/bill')
   } catch (e) {
-    if (e.error && e.error == 403 && e.message &&
-        (e.message == 'This application key is invalid'
-         || e.message == 'This credential does not exist')) {
+    if (
+      e.error &&
+      e.error == 403 &&
+      e.message &&
+      (e.message == 'This application key is invalid' ||
+        e.message == 'This credential does not exist')
+    ) {
       log('error', e)
       throw new Error(errors.LOGIN_FAILED)
     } else if (
@@ -39,37 +44,52 @@ async function getBillsListAndTestTokens(ovh) {
       log('error', e)
       log('error', 'The AppSecret seems not valid')
       throw new Error(errors.LOGIN_FAILED)
-    } else if (e.error && e.error == 403 && e.message
-               && e.message == 'This call has not been granted') {
+    } else if (
+      e.error &&
+      e.error == 403 &&
+      e.message &&
+      e.message == 'This call has not been granted'
+    ) {
       log('error', e)
       log('error', 'Auth ok, but GET /me/bill have not been granted')
+      throw new Error(errors.LOGIN_FAILED)
+    } else if (
+      e.error &&
+        e.error == 403 &&
+        e.message &&
+        e.message == 'This credential is not valid') {
+      log('error', e)
+      log('error', 'The tokens seems to have expired')
       throw new Error(errors.LOGIN_FAILED)
     } else {
       throw e
     }
   }
+}
 
-  log('info', `Found a list of ${bills.length} bills`)
-  log('debug', bills)
-  return bills
+async function getBillDetails(ovh, billId) {
+  try {
+    return await ovh.requestPromised('GET', `/me/bill/${billId}`)
+  } catch (e) {
+    if (
+      e.error &&
+        e.error == 403 &&
+        e.message &&
+        e.message == 'This call has not been granted'
+    ) {
+      log('error', e)
+      log('error', 'Auth ok, but GET /me/bill/* have not been granted')
+      throw new Error(errors.LOGIN_FAILED)
+    } else {
+      throw e
+    }
+  }
 }
 
 async function parseAndDecorateBills(ovh, bills) {
   const billsDec = []
   for (let bill of bills) {
-    let details = []
-    try {
-      details = await ovh.requestPromised('GET', `/me/bill/${bill}`)
-    } catch(e) {
-      if (e.error && e.error == 403 && e.message
-          && e.message == 'This call has not been granted') {
-        log('error', e)
-        log('error', 'Auth ok, but GET /me/bill/* have not been granted')
-        throw new Error(errors.LOGIN_FAILED)
-      } else {
-        throw e
-      }
-    }
+    const details = await getBillDetails(ovh, bill)
     const dateObject = new Date(details.date)
     const billDec = {
       vendor: 'Ovh',
