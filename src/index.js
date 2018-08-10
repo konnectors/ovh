@@ -25,16 +25,26 @@ async function getBillsListAndTestTokens(ovh) {
   try {
     bills = await ovh.requestPromised('GET', '/me/bill')
   } catch (e) {
-    if (e.error && e.error == 403) {
+    if (e.error && e.error == 403 && e.message &&
+        (e.message == 'This application key is invalid'
+         || e.message == 'This credential does not exist')) {
       log('error', e)
       throw new Error(errors.LOGIN_FAILED)
-    } else if (e.error && e.error == 400
-               && e.message && e.message == 'Invalid signature') {
+    } else if (
+      e.error &&
+      e.error == 400 &&
+      e.message &&
+      e.message == 'Invalid signature'
+    ) {
       log('error', e)
       log('error', 'The AppSecret seems not valid')
       throw new Error(errors.LOGIN_FAILED)
-    }
-    else {
+    } else if (e.error && e.error == 403 && e.message
+               && e.message == 'This call has not been granted') {
+      log('error', e)
+      log('error', 'Auth ok, but GET /me/bill have not been granted')
+      throw new Error(errors.LOGIN_FAILED)
+    } else {
       throw e
     }
   }
@@ -47,7 +57,19 @@ async function getBillsListAndTestTokens(ovh) {
 async function parseAndDecorateBills(ovh, bills) {
   const billsDec = []
   for (let bill of bills) {
-    const details = await ovh.requestPromised('GET', `/me/bill/${bill}`)
+    let details = []
+    try {
+      details = await ovh.requestPromised('GET', `/me/bill/${bill}`)
+    } catch(e) {
+      if (e.error && e.error == 403 && e.message
+          && e.message == 'This call has not been granted') {
+        log('error', e)
+        log('error', 'Auth ok, but GET /me/bill/* have not been granted')
+        throw new Error(errors.LOGIN_FAILED)
+      } else {
+        throw e
+      }
+    }
     const dateObject = new Date(details.date)
     const billDec = {
       vendor: 'Ovh',
