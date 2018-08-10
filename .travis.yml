@@ -14,7 +14,7 @@ cache:
 branches:
   except:
   - build
-  - build-debugscript: 
+  - build-debug
 scripts:
 - yarn lint
 - yarn build
