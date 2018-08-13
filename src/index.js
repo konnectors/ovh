@@ -27,60 +27,51 @@ async function start(fields) {
 }
 
 async function getBillsListAndTestTokens(ovh) {
-  try {
-    return await ovh.requestPromised('GET', '/me/bill')
-  } catch (e) {
-    if (
-      e.error &&
-      e.error == 403 &&
-      e.message &&
-      (e.message == 'This application key is invalid' ||
-        e.message == 'This credential does not exist')
-    ) {
-      log('error', e)
-      throw new Error(errors.LOGIN_FAILED)
-    } else if (
-      e.error &&
-      e.error == 400 &&
-      e.message &&
-      e.message == 'Invalid signature'
-    ) {
-      log('error', e)
-      log('error', 'The AppSecret seems not valid')
-      throw new Error(errors.LOGIN_FAILED)
-    } else if (
-      e.error &&
-      e.error == 403 &&
-      e.message &&
-      e.message == 'This call has not been granted'
-    ) {
-      log('error', e)
-      log('error', 'Auth ok, but GET /me/bill have not been granted')
-      throw new Error(errors.LOGIN_FAILED)
-    } else if (
-      e.error &&
-      e.error == 403 &&
-      e.message &&
-      e.message == 'This credential is not valid'
-    ) {
-      log('error', e)
-      log('error', 'The tokens seems to have expired')
-      throw new Error(errors.LOGIN_FAILED)
-    } else {
+  return await ovh.requestPromised('GET', '/me/bill').catch(function(e) {
+    if (e.error == undefined || e.message == undefined) {
       throw e
-    }
-  }
+    } else {
+      if (
+        e.error == 403 && (
+          e.message == 'This application key is invalid' ||
+            e.message == 'This credential does not exist')) {
+        log('error', e)
+        throw new Error(errors.LOGIN_FAILED)
+      } else if (
+        e.error == 400 &&
+          e.message == 'Invalid signature'
+      ) {
+        log('error', e)
+        log('error', 'The AppSecret seems not valid')
+          throw new Error(errors.LOGIN_FAILED)
+      } else if (
+        e.error == 403 &&
+          e.message == 'This call has not been granted'
+      ) {
+        log('error', e)
+        log('error', 'Auth ok, but GET /me/bill have not been granted')
+        throw new Error(errors.LOGIN_FAILED)
+      } else if (
+          e.error == 403 &&
+          e.message == 'This credential is not valid'
+      ) {
+        log('error', e)
+        log('error', 'The tokens seems to have expired')
+        throw new Error(errors.LOGIN_FAILED)
+      } else {
+        throw e
+      }
+      }
+  })
 }
 
 async function getBillDetails(ovh, billId) {
-  try {
-    return await ovh.requestPromised('GET', `/me/bill/${billId}`)
-  } catch (e) {
+  return await ovh.requestPromised('GET', `/me/bill/${billId}`).catch(function(e) {
     if (
       e.error &&
-      e.error == 403 &&
-      e.message &&
-      e.message == 'This call has not been granted'
+        e.error == 403 &&
+        e.message &&
+        e.message == 'This call has not been granted'
     ) {
       log('error', e)
       log('error', 'Auth ok, but GET /me/bill/* have not been granted')
@@ -88,8 +79,10 @@ async function getBillDetails(ovh, billId) {
     } else {
       throw e
     }
-  }
+  })
 }
+
+
 
 async function parseAndDecorateBills(ovh, bills) {
   const billsDec = []
