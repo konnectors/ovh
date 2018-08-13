@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "name": "Ovh",
+  "type": "konnector",
+  "language": "node",
+  "icon": "icon.png",
+  "slug": "ovh",
+  "source": "git://github.com/konnectors/ovh.git",
+  "editor": "Cozy",
+  "vendor_link": "https://www.ovh/com/",
+  "categories": ["online_services"],
+  "fields": {
+    "appKey": {
+      "type": "text"
+    },
+    "appSecret": {
+      "type": "password"
+    },
+    "consumerKey": {
+      "type": "password"
+    },
+    "advancedFields": {
+      "folderPath": {
+        "advanced": true,
+        "isRequired": false
+      }
+    }
+  },
+  "data_types": [
+    "bill"
+  ],
+  "permissions": {
+    "bank operations": {
+      "type": "io.cozy.bank.operations"
+    },
+    "bills": {
+      "type": "io.cozy.bills"
+    },
+    "files": {
+      "type": "io.cozy.files"
+    },
+    "accounts": {
+      "type": "io.cozy.accounts",
+      "verbs": ["GET"]
+    }
+  },
+  "developer": {
+    "name": "Cozy Cloud",
+    "url": "https://cozy.io"
+  },
+  "langs": ["fr", "en"],
+  "locales": {
+    "fr": {
+      "short_description": "Connecteur Ovh",
+      "long_description": "Ce connecteur récupère vos factures du site ovh.com via l'api. Utiliser ce lien pour générer vos tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
+      "permissions": {
+        "bank operations": {
+          "description": "Utilisé pour relier les factures à des operations bancaires"
+        },
+        "bills": {
+          "description": "Utilisé pour sauver les données des factures"
+        },
+        "files": {
+          "description": "Utilisé pour sauvegarder les factures"
+        },
+        "accounts": {
+          "description": "Utilisé pour obtenir les données du compte"
+        }
+      }
+    },
+    "en": {
+      "short_description": "Ovh connector",
+      "long_description": "This connector fetches your bills on ovh.com from the API. Use this link to generate your tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
+      "permissions": {
+        "bank operations": {
+          "description": "Required to link bank operations to bills"
+        },
+        "bills": {
+          "description": "Required to save the bills data"
+        },
+        "files": {
+          "description": "Required to save the bills"
+        },
+        "accounts": {
+          "description": "Required to get the account's data"
+        }
+      }
+    }
+  }
+}
