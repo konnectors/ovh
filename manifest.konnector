@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "name": "Ovh",
+  "name": "OVH",
   "type": "konnector",
   "language": "node",
   "icon": "icon.png",
