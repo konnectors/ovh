@@ -33,53 +33,51 @@ async function getBillsListAndTestTokens(ovh) {
     } else {
       log('error', e)
       if (
-        e.error == 403 && (
-          e.message == 'This application key is invalid' ||
-            e.message == 'This credential does not exist')) {
+        e.error == 403 &&
+        (e.message == 'This application key is invalid' ||
+          e.message == 'This credential does not exist')
+      ) {
+        throw new Error(errors.LOGIN_FAILED)
+      } else if (e.error == 400 && e.message == 'Invalid signature') {
+        log('error', 'The AppSecret seems not valid')
         throw new Error(errors.LOGIN_FAILED)
       } else if (
-        e.error == 400 &&
-          e.message == 'Invalid signature'
-      ) {
-        log('error', 'The AppSecret seems not valid')
-          throw new Error(errors.LOGIN_FAILED)
-      } else if (
         e.error == 403 &&
-          e.message == 'This call has not been granted'
+        e.message == 'This call has not been granted'
       ) {
         log('error', 'Auth ok, but GET /me/bill have not been granted')
         throw new Error(errors.LOGIN_FAILED)
       } else if (
-          e.error == 403 &&
-          e.message == 'This credential is not valid'
+        e.error == 403 &&
+        e.message == 'This credential is not valid'
       ) {
         log('error', 'The tokens seems to have expired')
         throw new Error(errors.LOGIN_FAILED)
       } else {
         throw e
       }
-      }
-  })
-}
-
-async function getBillDetails(ovh, billId) {
-  return await ovh.requestPromised('GET', `/me/bill/${billId}`).catch(function(e) {
-    if (
-      e.error &&
-        e.error == 403 &&
-        e.message &&
-        e.message == 'This call has not been granted'
-    ) {
-      log('error', e)
-      log('error', 'Auth ok, but GET /me/bill/* have not been granted')
-      throw new Error(errors.LOGIN_FAILED)
-    } else {
-      throw e
     }
   })
 }
 
-
+async function getBillDetails(ovh, billId) {
+  return await ovh
+    .requestPromised('GET', `/me/bill/${billId}`)
+    .catch(function(e) {
+      if (
+        e.error &&
+        e.error == 403 &&
+        e.message &&
+        e.message == 'This call has not been granted'
+      ) {
+        log('error', e)
+        log('error', 'Auth ok, but GET /me/bill/* have not been granted')
+        throw new Error(errors.LOGIN_FAILED)
+      } else {
+        throw e
+      }
+    })
+}
 
 async function parseAndDecorateBills(ovh, bills) {
   const billsDec = []
