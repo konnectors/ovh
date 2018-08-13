@@ -5,13 +5,17 @@ env:
   global:
   - GH_USER_EMAIL="travis@example.org"
   - GH_USER_NAME="cozy-bot"
-  - DEPLOY_REPOSITORY="git@github.com:konnectors/cozy-konnector-template.git"
-  - secure: CQ44ZVjPAIVRvGgMcduSAX4VmaOrzF3nrJXPFUsNQ2tMVVdaAlI1zTNkdfntqigZgz6Mpk9x+2FcA8qrkNzQ4cW0lPP9f5dBtSH1xetfpXDFKprW4bqzmhgXSXJFTOYxkChOBPmCYJr+Vv4XqDkv/dBEPdfRSgvVyd5YxHSd5HBU91rKyR+Hox7LTnhmlXleLIs11EQgp7RK+L28MBCtCqAa2niFlKKRlqupm2FSpZzxCh9qeY0wKCQzPE+QZUm4waJ1SUGKQwbzAfyOxu2O6rwzaTSknfdJoSX6AMxjRTWBC9c3VfUGM3wjVJIqMhiUj2FQhVIjiDyX/W60/q3UMC5WYzSvEDDfhnKCPwiUKSU7HvSxx9q2YP34evxKo7KPahz9zLlQZvW+GBMyI9hbMDBTALuQVVzhftsvqfrogyYhkEPviiYiVADWNxhacsbUjRA5svXnZvtmCPo7fLFwel/krgC5Z8AwAY0YxWjSHNVScUkieSDCrlxrC09vTtG60unt9gtXbD5ruUkDLWSUwHBv2p0WY1TdP+2Vlf3yYfBvEVbqi59AxG+T17bq7Xv3QZnkrwC+UOCNCeg+gHPv+fRpUaYWzCO4uaoY/nlJa7RulQFhGca3A//6xRo/KgWw9JJnOXJelNjE9oHCUu9xShotUZKOF+O93V/BRqs9ITo=
+  - DEPLOY_REPOSITORY="git@github.com:konnectors/ovh.git"
+  - secure: cBG9QNv1Qzc8mZSfoAYRAGwM/f6rJJpbTjEmCV7q6x6fCG6ANjyd6MNqfpeC2iuT/ZYeCo648Pd/vioba8fLTm5h8Q61pQJD6iW40WjpKDq+V8wYq2t7SYqGxIy82a1eVcqQVzvpf8Ld/1dNG76yUyHCW5ep7alwJlWItkg+vY6zNYQlDNWdzhw1XtZrhdIPQ5xhIay6/y6tr3YJ8nA4NnCpBMjOfUppEmAoye69tvaDEqaJEbRd9l+dt2cAxVdMK6QpKgqG20lKd9QwmqwsAX+h3yN+H3mEA//aos8PBdnAloXywO+i8KE9CL+UszUFKdjxuaq936e13iS+jBXsx+UQ8VbuIy2N4KlHey4X2n5ifcv/qVS6d4v7FG5Jui0Tk+YOSeroqsn2Ld2Us5rByV+e07101IwAwISfRlyEYvrSm89rR5XGfxnKJ8SXITcxeFq9TtP7rBdcdm2EQYtzMrT940Sm1h6eroHED0k9biZKMknp8Tq4the6kiTSnCW7e8mk7Fm6iuq8XZ39W+vxdlwi8AOmza/D3K+BkL2/pWbvlbjWnzKinKS+6s7O6yufU1OmOrVYwwFpY1DE7GnHU1tX+lUGFZqdoZ2ba2PoRevEFPY+s6SCheLPdbvOZ/lFYgbEpnfiGSoPYNvKiXqdiPUv02/RiezXDVEGYaH0zIk=
 cache:
   yarn: true
   directories:
   - node_modules
-script:
+branches:
+  except:
+  - build
+  - build-debug
+scripts:
 - yarn lint
 - yarn build
 deploy:
@@ -22,18 +26,15 @@ deploy:
     branch: master
 - provider: script
   skip-cleanup: true
-  script: DEPLOY_BRANCH=latest yarn deploy
-  on:
-    branch: prod
-- provider: script
-  skip-cleanup: true
   script: DEPLOY_BRANCH=build yarn deploy && yarn cozyPublish
   on:
     tags: true
 before_install:
-# run the yarn travisDeployKey command to genrate this
-# - openssl aes-256-cbc -K $encrypted_0b21ecdcf920_key -iv $encrypted_0b21ecdcf920_iv
-#   -in github_deploy_key.enc -out /tmp/github_deploy_key -d
+- openssl aes-256-cbc -K $encrypted_a7154a29ee86_key -iv $encrypted_a7154a29ee86_iv
+  -in github_deploy_key.enc -out /tmp/github_deploy_key -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/github_deploy_key
 - ssh-add /tmp/github_deploy_key
+after_deploy:
+- rm /tmp/github_deploy_key
+- ssh-add -D
