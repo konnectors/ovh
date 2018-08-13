@@ -15,7 +15,7 @@ branches:
   except:
   - build
   - build-debug
-scripts:
+script:
 - yarn lint
 - yarn build
 deploy:
