@@ -52,7 +52,7 @@
   "locales": {
     "fr": {
       "short_description": "Connecteur Ovh",
-      "long_description": "Ce connecteur récupère vos factures du site ovh.com via l'api.\nUtiliser ce lien pour générer vos 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
+      "long_description": "Ce connecteur récupère vos factures du site ovh.com via l'api.\nUtiliser ce lien pour générer vos 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited\n Vous pouvez les supprimer via la console de l'API OVH : https://api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE",
       "permissions": {
         "bank operations": {
           "description": "Utilisé pour relier les factures à des operations bancaires"
@@ -70,7 +70,7 @@
     },
     "en": {
       "short_description": "Ovh connector",
-      "long_description": "This connector fetches your bills on ovh.com from the API.\nUse this link to generate your 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited",
+      "long_description": "This connector fetches your bills on ovh.com from the API.\nUse this link to generate your 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited\nYou can use the OVH api console to delete them : https://api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE",
       "permissions": {
         "bank operations": {
           "description": "Required to link bank operations to bills"
