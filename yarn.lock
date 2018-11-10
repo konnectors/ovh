@@ -5130,10 +5130,10 @@ osenv@0, osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-ovh@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ovh/-/ovh-2.0.1.tgz#83e6ab570401bd827fb094afe682d28141c8aa07"
-  integrity sha1-g+arVwQBvYJ/sJSv5oLSgUHIqgc=
+ovh@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ovh/-/ovh-2.0.2.tgz#5b9feeee198bb55beaf0087b39f397343af531ce"
+  integrity sha512-DGg2RjRAwejTZ/tML3G6GG5dhGQJ6vB1gndnsNHFBLlTagxDZwFtzYB9C6ZAsS4rXBwKzlFW1prwDoHkTNq5VA==
   dependencies:
     async "0.9.x"
     bluebird "^3.4.0"
