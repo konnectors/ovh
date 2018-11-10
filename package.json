@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "cozy-konnector-libs": "4.11.4",
-    "ovh": "2.0.1"
+    "ovh": "2.0.2"
   },
   "devDependencies": {
     "copy-webpack-plugin": "4.6.0",
