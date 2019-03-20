@@ -5,7 +5,7 @@
   "language": "node",
   "icon": "icon.svg",
   "slug": "ovh",
-  "source": "git://github.com/konnectors/ovh.git",
+  "source": "git@github.com:konnectors/ovh.git",
   "editor": "Cozy",
   "vendor_link": "https://www.ovh/com/",
   "categories": [
