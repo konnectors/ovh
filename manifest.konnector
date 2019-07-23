@@ -14,10 +14,6 @@
   "fields": {
     "provider": {
       "type": "dropdown",
-      "default": {
-        "name": "OVH Europe",
-        "value": "ovh-eu"
-      },
       "options": [
         {
           "name": "OVH Europe",
