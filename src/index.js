@@ -22,7 +22,9 @@ async function start(fields) {
   log('info', 'Saving data to Cozy...')
   await saveBills(billsDecorated, fields.folderPath, {
     identifiers: ['OVH'],
-    contentType: 'application/pdf'
+    contentType: 'application/pdf',
+    sourceAccount: this._account._id,
+    sourceAccountIdentifier: fields.appKey
   })
 }
 
