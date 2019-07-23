@@ -9,6 +9,7 @@ module.exports = new BaseKonnector(start)
 async function start(fields) {
   log('info', 'Testing authentification tokens...')
   const ovh = require('ovh')({
+    endpoint: fields.provider ? fields.provider : 'ovh-eu',
     appKey: fields.appKey,
     appSecret: fields.appSecret,
     consumerKey: fields.consumerKey
@@ -21,8 +22,10 @@ async function start(fields) {
 
   log('info', 'Saving data to Cozy...')
   await saveBills(billsDecorated, fields.folderPath, {
-    identifiers: ['OVH'],
-    contentType: 'application/pdf'
+    identifiers: ['OVH'], // FIXME This is working for OVH and Kimsufi, no idea for the other providers
+    contentType: 'application/pdf',
+    sourceAccount: this._account._id,
+    sourceAccountIdentifier: fields.appKey
   })
 }
 
