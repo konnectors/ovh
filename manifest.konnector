@@ -1,17 +1,58 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "name": "OVH",
   "type": "konnector",
   "language": "node",
-  "icon": "icon.png",
+  "icon": "icon.svg",
   "slug": "ovh",
-  "source": "git://github.com/konnectors/ovh.git",
+  "source": "git@github.com:konnectors/ovh.git",
   "editor": "Cozy",
   "vendor_link": "https://www.ovh/com/",
   "categories": [
     "online_services"
   ],
   "fields": {
+    "provider": {
+      "type": "dropdown",
+      "default": {
+        "name": "OVH Europe",
+        "value": "ovh-eu"
+      },
+      "options": [
+        {
+          "name": "OVH Europe",
+          "value": "ovh-eu"
+        },
+        {
+          "name": "OVH US",
+          "value": "ovh-us"
+        },
+        {
+          "name": "OVH North-America",
+          "value": "ovh-ca"
+        },
+        {
+          "name": "RunAbove",
+          "value": "runabove-ca"
+        },
+        {
+          "name": "SoYouStart Europe",
+          "value": "soyoustart-eu"
+        },
+        {
+          "name": "SoYouStart North-America",
+          "value": "soyoustart-ca"
+        },
+        {
+          "name": "Kimsufi Europe",
+          "value": "kimsufi-eu"
+        },
+        {
+          "name": "Kimsufi North-America",
+          "value": "kimsufi-ca"
+        }
+      ]
+    },
     "appKey": {
       "type": "text"
     },
@@ -59,7 +100,7 @@
   "locales": {
     "fr": {
       "short_description": "Connecteur Ovh",
-      "long_description": "Ce connecteur récupère vos factures du site ovh.com via l'api.\n- Utiliser ce lien pour générer vos 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited\n- Vous pouvez les supprimer via la console de l'API OVH : https://api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE",
+      "long_description": "Ce connecteur récupère vos factures des sites OVH via l'API.\n### Création du token\nUtilisez le lien correspondant à votre fournisseur pour générer vos clés d'accès :\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH North-America](https://ca.api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [RunAbove](https://api.runabove.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n### Suppression du token\nVous pouvez supprimer vos tokens via la console de l'API correspondant à votre fournisseur :\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [OVH North-America](https://ca.api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [RunAbove](https://api.runabove.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)",
       "permissions": {
         "bank operations": {
           "description": "Utilisé pour relier les factures à des operations bancaires"
@@ -73,11 +114,16 @@
         "accounts": {
           "description": "Utilisé pour obtenir les données du compte"
         }
+      },
+      "fields": {
+        "provider": {
+          "label": "Fournisseur"
+        }
       }
     },
     "en": {
       "short_description": "Ovh connector",
-      "long_description": "This connector fetches your bills on ovh.com from the API.\n- Use this link to generate your 3 tokens : https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited\n- You can use the OVH api console to delete them : https://api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE",
+      "long_description": "This connector fetches your OVH bills through the API.\n### Token creation\nUse the link corresponding to your provider in order to generate your access keys:\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH North-America](https://ca.api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [RunAbove](https://api.runabove.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n### Token deletion\nYou are able to delete your tokens through the console of the API corresponding to your provider:\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [OVH North-America](https://ca.api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [RunAbove](https://api.runabove.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)",
       "permissions": {
         "bank operations": {
           "description": "Required to link bank operations to bills"
@@ -90,6 +136,11 @@
         },
         "accounts": {
           "description": "Required to get the account's data"
+        }
+      },
+      "fields": {
+        "provider": {
+          "label": "Provider"
         }
       }
     }
