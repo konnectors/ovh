@@ -7,7 +7,7 @@
   "slug": "ovh",
   "source": "git@github.com:konnectors/ovh.git",
   "editor": "Cozy",
-  "vendor_link": "https://www.ovh/com/",
+  "vendor_link": "https://www.ovh.com/",
   "categories": [
     "online_services"
   ],
