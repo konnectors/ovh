@@ -141,5 +141,6 @@
       }
     }
   },
+  "banksTransactionRegExp": "\\bovh|Kimsufi\\b",
   "manifest_version": "2"
 }
