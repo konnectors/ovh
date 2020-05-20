@@ -2,7 +2,7 @@ process.env.SENTRY_DSN =
   process.env.SENTRY_DSN ||
   'https://9ba275488abd408ebd7dbd017e7994b7:a3e6a4bd7d904bf890ecaf602ecfbf73@sentry.cozycloud.cc/89'
 
-const { BaseKonnector, saveBills, log, errors } = require('cozy-konnector-libs')
+const { BaseKonnector, log, errors } = require('cozy-konnector-libs')
 
 module.exports = new BaseKonnector(start)
 
@@ -21,11 +21,12 @@ async function start(fields) {
   const billsDecorated = await parseAndDecorateBills(ovh, bills)
 
   log('info', 'Saving data to Cozy...')
-  await saveBills(billsDecorated, fields.folderPath, {
+  await this.saveBills(billsDecorated, fields.folderPath, {
     identifiers: ['OVH', 'Kimsufi'], // FIXME This is working for OVH and Kimsufi, no idea for the other providers
     contentType: 'application/pdf',
-    sourceAccount: this._account._id,
-    sourceAccountIdentifier: fields.appKey
+    sourceAccountIdentifier: fields.appKey,
+    keys: ['vendorRef'],
+    fileIdAttributes: ['vendorRef']
   })
 }
 
@@ -92,6 +93,7 @@ async function parseAndDecorateBills(ovh, bills) {
       date: dateObject,
       amount: details.priceWithTax.value,
       currency: details.priceWithTax.currencyCode,
+      vendorRef: details.billId,
       fileurl: details.pdfUrl,
       filename:
         `${dateObject.toISOString().substring(0, 10)}` +
