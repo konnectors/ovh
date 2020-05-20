@@ -22,7 +22,7 @@ async function start(fields) {
 
   log('info', 'Saving data to Cozy...')
   await saveBills(billsDecorated, fields.folderPath, {
-    identifiers: ['OVH'], // FIXME This is working for OVH and Kimsufi, no idea for the other providers
+    identifiers: ['OVH', 'Kimsufi'], // FIXME This is working for OVH and Kimsufi, no idea for the other providers
     contentType: 'application/pdf',
     sourceAccount: this._account._id,
     sourceAccountIdentifier: fields.appKey
