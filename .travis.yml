@@ -1,10 +1,9 @@
 language: node_js
 node_js:
-- '8'
+- '12.22.11'
 env:
   global:
-  - MATTERMOST_CHANNEL=teamconnecteurs
-  - DEPLOY_REPOSITORY="git@github.com:konnectors/ovh.git"
+  - MATTERMOST_CHANNEL=publication
   # REGISTRY_TOKEN(editor=cozy, app=ovh)
   - secure: cBG9QNv1Qzc8mZSfoAYRAGwM/f6rJJpbTjEmCV7q6x6fCG6ANjyd6MNqfpeC2iuT/ZYeCo648Pd/vioba8fLTm5h8Q61pQJD6iW40WjpKDq+V8wYq2t7SYqGxIy82a1eVcqQVzvpf8Ld/1dNG76yUyHCW5ep7alwJlWItkg+vY6zNYQlDNWdzhw1XtZrhdIPQ5xhIay6/y6tr3YJ8nA4NnCpBMjOfUppEmAoye69tvaDEqaJEbRd9l+dt2cAxVdMK6QpKgqG20lKd9QwmqwsAX+h3yN+H3mEA//aos8PBdnAloXywO+i8KE9CL+UszUFKdjxuaq936e13iS+jBXsx+UQ8VbuIy2N4KlHey4X2n5ifcv/qVS6d4v7FG5Jui0Tk+YOSeroqsn2Ld2Us5rByV+e07101IwAwISfRlyEYvrSm89rR5XGfxnKJ8SXITcxeFq9TtP7rBdcdm2EQYtzMrT940Sm1h6eroHED0k9biZKMknp8Tq4the6kiTSnCW7e8mk7Fm6iuq8XZ39W+vxdlwi8AOmza/D3K+BkL2/pWbvlbjWnzKinKS+6s7O6yufU1OmOrVYwwFpY1DE7GnHU1tX+lUGFZqdoZ2ba2PoRevEFPY+s6SCheLPdbvOZ/lFYgbEpnfiGSoPYNvKiXqdiPUv02/RiezXDVEGYaH0zIk=
   # MATTERMOST_HOOK_URL
@@ -20,7 +19,6 @@ branches:
 script:
 - yarn lint
 - yarn build
-# - yarn run check
 deploy:
 - provider: script
   skip-cleanup: true

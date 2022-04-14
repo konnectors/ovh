@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.5.0",
   "name": "OVH",
   "type": "konnector",
   "language": "node",
@@ -7,7 +7,7 @@
   "slug": "ovh",
   "source": "git@github.com:konnectors/ovh.git",
   "editor": "Cozy",
-  "vendor_link": "https://www.ovh/com/",
+  "vendor_link": "https://www.ovh.com/",
   "categories": [
     "online_services"
   ],
@@ -50,7 +50,8 @@
       ]
     },
     "appKey": {
-      "type": "text"
+      "type": "text",
+      "role": "identifier"
     },
     "appSecret": {
       "type": "password"
@@ -141,5 +142,6 @@
       }
     }
   },
+  "banksTransactionRegExp": "\\bovh|Kimsufi\\b",
   "manifest_version": "2"
 }
