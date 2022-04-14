@@ -31,7 +31,7 @@ async function start(fields) {
 }
 
 async function getBillsListAndTestTokens(ovh) {
-  return await ovh.requestPromised('GET', '/me/bill').catch(function(e) {
+  return await ovh.requestPromised('GET', '/me/bill').catch(function (e) {
     if (e.error == undefined || e.message == undefined) {
       throw e
     } else {
@@ -67,7 +67,7 @@ async function getBillsListAndTestTokens(ovh) {
 async function getBillDetails(ovh, billId) {
   return await ovh
     .requestPromised('GET', `/me/bill/${billId}`)
-    .catch(function(e) {
+    .catch(function (e) {
       if (
         e.error &&
         e.error == 403 &&
