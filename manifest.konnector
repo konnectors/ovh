@@ -50,7 +50,8 @@
       ]
     },
     "appKey": {
-      "type": "text"
+      "type": "text",
+      "role": "identifier"
     },
     "appSecret": {
       "type": "password"
