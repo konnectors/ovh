@@ -70,6 +70,9 @@
     "bill"
   ],
   "permissions": {
+    "carbon_copy": {
+      "type": "io.cozy.certified.carbon_copy"
+    },
     "bank operations": {
       "type": "io.cozy.bank.operations"
     },
@@ -99,6 +102,9 @@
       "short_description": "Connecteur Ovh",
       "long_description": "Ce connecteur récupère vos factures des sites OVH via l'API.\n### Création du token\nUtilisez le lien correspondant à votre fournisseur pour générer vos clés d'accès :\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH North-America](https://ca.api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [RunAbove](https://api.runabove.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n### Suppression du token\nVous pouvez supprimer vos tokens via la console de l'API correspondant à votre fournisseur :\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [OVH North-America](https://ca.api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [RunAbove](https://api.runabove.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)",
       "permissions": {
+        "carboncopy": {
+          "description": "Utilisé pour certifier que vos fichiers sont copie conforme avec les documents d'origine"
+        },
         "bank operations": {
           "description": "Utilisé pour relier les factures à des operations bancaires"
         },
@@ -122,6 +128,9 @@
       "short_description": "Ovh connector",
       "long_description": "This connector fetches your OVH bills through the API.\n### Token creation\nUse the link corresponding to your provider in order to generate your access keys:\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH North-America](https://ca.api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [RunAbove](https://api.runabove.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n### Token deletion\nYou are able to delete your tokens through the console of the API corresponding to your provider:\n- [OVH Europe](https://api.ovh.com/createToken/?GET=/me/bill&GET=/me/bill/*&duration=Unlimited)\n- [OVH US](https://api.us.ovhcloud.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [OVH North-America](https://ca.api.ovh.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [RunAbove](https://api.runabove.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart Europe](https://eu.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [SoYouStart North-America](https://ca.api.soyoustart.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi Europe](https://eu.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)\n- [Kimsufi North-America](https://ca.api.kimsufi.com/console/#/me/api/credential/%7BcredentialId%7D#DELETE)",
       "permissions": {
+        "carboncopy": {
+          "description": "Use to certify your files are the exact copy of the originals"
+        },
         "bank operations": {
           "description": "Required to link bank operations to bills"
         },
@@ -142,6 +151,15 @@
       }
     }
   },
+  "qualification_labels": [
+    "web_service_invoice"
+  ],
+  "features": [
+    "METADATA_DEDUP",
+    "CARBON_COPY",
+    "DOC_QUALIFICATION_V2",
+    "SENTRY_V2"
+  ],
   "banksTransactionRegExp": "\\bovh|Kimsufi\\b",
   "manifest_version": "2"
 }

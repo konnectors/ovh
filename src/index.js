@@ -1,8 +1,11 @@
 process.env.SENTRY_DSN =
   process.env.SENTRY_DSN ||
-  'https://9ba275488abd408ebd7dbd017e7994b7:a3e6a4bd7d904bf890ecaf602ecfbf73@sentry.cozycloud.cc/89'
+  'https://a016e2fec4f542878faac2a7762410d4@errors.cozycloud.cc/40'
 
-const { BaseKonnector, log, errors } = require('cozy-konnector-libs')
+const { BaseKonnector, log, errors, cozyClient } = require('cozy-konnector-libs')
+
+const models = cozyClient.new.models
+const { Qualification } = models.document
 
 module.exports = new BaseKonnector(start)
 
@@ -98,9 +101,19 @@ async function parseAndDecorateBills(ovh, bills) {
       filename:
         `${dateObject.toISOString().substring(0, 10)}` +
         `_${details.priceWithTax.text.replace(' ', '')}` +
-        `_${details.billId}.pdf`
+        `_${details.billId}.pdf`,
+      fileAttributes: {
+        metadata: {
+          contentAuthor: 'ovh.com',
+          issueDate: new Date(),
+          datetime: dateObject,
+          datetimeLabel: `issueDate`,
+          isSubscription: true,
+          carbonCopy: true,
+          qualification: Qualification.getByLabel('web_service_invoice')
+        }
+      }
     }
-    log('debug', billDec)
     billsDec.push(billDec)
   }
   return billsDec
